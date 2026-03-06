@@ -1,0 +1,50 @@
+{% extends 'base.html' %} {% load static %} {% block head %}
+<link
+  rel="stylesheet"
+  href="{% static 'css/members/member-index.css' %}"
+/>
+{% endblock %} {% block content %}
+
+<section class="page-header">
+  <h1>Member List</h1>
+  <img
+    src="{% static 'images/cool-member.svg' %}"
+    alt="A cool member"
+  />
+  <img
+    src="{% static 'images/happy-member.svg' %}"
+    alt="A happy member"
+  />
+  <img
+    src="{% static 'images/teacup-member.svg' %}"
+    alt="A member in a teacup"
+  />
+  <img
+    src="{% static 'images/member-in-box.svg' %}"
+    alt="A member in a box"
+  />
+</section>
+
+<section class="card-container">
+  {% for member in members %}
+  <div class="card">
+    <a href="{% url 'member_detail' member.id %}">
+
+        <div class="card-content">
+        <div class="card-img-container">
+            <img
+            src="{% static 'images/sk8r-boi-member.svg' %}"
+            alt="A skater boy member"
+            />
+        </div>
+        <h2 class="card-title">{{ member.username }}</h2>
+        <p>Timezone: {{ member.timezone }}</p>
+        <p>Member State: {{ member.member_state }}</p>
+        <p>Current Status: {{ member.current_status }}</p>
+        </div>
+    </a>
+  </div>
+  {% endfor %}
+</section>
+
+{% endblock %}

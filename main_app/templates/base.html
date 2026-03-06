@@ -25,7 +25,12 @@
       </div>
       <nav>
         <ul>
-          <li><a href="/about">About</a></li>
+          <li><a href="{% url 'members_index' %}">Members</a></li>
+          <li><a href="{% url 'historical' %}">Recruitment Data</a></li>
+          <li><a href="{% url 'graduation' %}">Graduation Data</a></li>
+          <li><a href="{% url 'attrition' %}">Attrition Data</a></li>
+          <li><a href="{% url 'analytics' %}">Analytics</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
         </ul>
       </nav>
     </header>

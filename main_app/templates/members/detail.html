@@ -1,0 +1,18 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/members/member-detail.css' %}" />
+{% endblock %} 
+{% block content %}
+<section class="member-container">
+  <div class="member-img">
+    <img src="{% static 'images/sk8r-boi-member.svg' %}" alt="A skater boy member" />
+  </div>
+  <div class="member-details">
+    <h1>{{ member.username }}</h1>
+    <p>Timezone: {{ member.timezone }}</p>
+    <p>Member State: {{ member.member_state }}</p>
+    <p>Current Status: {{ member.current_status }}</p>
+  </div>
+</section>
+{% endblock %}

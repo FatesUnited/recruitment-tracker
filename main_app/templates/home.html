@@ -1,0 +1,21 @@
+{% extends 'base.html' %} {% load static %} {% block head %}
+<link
+  rel="stylesheet"
+  href="{% static 'css/home.css' %}"
+/>
+{% endblock %} {% block content %}
+
+<section class="logo-container">
+  <div class="member-container">
+    <img
+      src="{% static 'images/splash.svg' %}"
+      alt="The member Collector member"
+    />
+  </div>
+  <img
+    src="{% static 'images/logotype.svg' %}"
+    alt="Text reads: member Collector"
+  />
+</section>
+
+{% endblock %}
