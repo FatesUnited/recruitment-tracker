@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.postgres.fields import ArrayField
+from django.urls import reverse
+# from django.contrib.postgres.fields import ArrayField
 
 class Member(models.Model):
     username = models.CharField(max_length=100, unique=True)
@@ -22,3 +23,5 @@ class Member(models.Model):
     def __str__(self):
         return self.username
 
+    def get_absolute_url(self):
+        return reverse('member_detail', kwargs={'member_id': self.id})

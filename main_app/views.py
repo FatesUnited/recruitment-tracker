@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Member
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 def home(request):
     return render(request, 'home.html')
@@ -26,3 +27,15 @@ def attrition(request):
 
 def analytics(request):
     return render(request, 'analytics.html')
+
+class MemberCreate(CreateView):
+    model = Member
+    fields = '__all__'
+
+class MemberUpdate(UpdateView):
+    model = Member
+    fields = '__all__'
+
+class MemberDelete(DeleteView):
+    model = Member
+    success_url = '/members/'

@@ -13,6 +13,11 @@
     <p>Timezone: {{ member.timezone }}</p>
     <p>Member State: {{ member.member_state }}</p>
     <p>Current Status: {{ member.current_status }}</p>
+
+    <div class="member-actions">
+        <a href="{% url 'member_update' member.id %}" class="btn warn">Edit</a>
+        <a href="{% url 'member_delete' member.id %}" class="btn danger">Delete</a>
+    </div>
   </div>
 </section>
 {% endblock %}

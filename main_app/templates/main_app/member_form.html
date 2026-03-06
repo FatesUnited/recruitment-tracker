@@ -1,0 +1,25 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/form.css' %}" />
+{% endblock %} 
+{% block content %}
+
+<div class="page-header">
+    {% if member %}
+        <h1>Edit {{ member.username }}</h1>
+    {% else %}
+        <h1>Add a Member</h1>
+    {% endif %}
+  <img src="{% static 'images/nerd-member.svg' %}" alt="A member using a computer" />
+</div>
+
+<form action="" method="post" class="form-container">
+  {% csrf_token %}
+  <table>
+    {{ form.as_table }}
+  </table>
+  <button type="submit" class="btn submit">Submit!</button>
+</form>
+
+{% endblock %}
