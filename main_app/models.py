@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
+from datetime import date
 
 CORPORATIONS = (
     ('TL', 'Tidal Lock'),
@@ -59,6 +60,12 @@ class Member(models.Model):
 
     def get_absolute_url(self):
         return reverse('member_detail', kwargs={'member_id': self.id})
+    
+    @property
+    def days_in_recruit(self):
+        if self.current_status == 'Recruit' and self.join_date:
+            return (date.today() - self.join_date).days
+        return None
     
 class Comment(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE, related_name='comments')

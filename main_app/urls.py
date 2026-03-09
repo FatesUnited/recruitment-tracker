@@ -15,9 +15,9 @@ urlpatterns = [
         name='add_comment'
     ),
     path('accounts/signup/', views.signup, name='signup'),
+    path('recruitment/', views.recruitment, name='recruitment'),
     path('historical/', views.historical, name='historical'),
     path('graduation/', views.graduation, name='graduation'),
     path('attrition/', views.attrition, name='attrition'),
-
     path('analytics/', views.analytics, name='analytics'),
 ]

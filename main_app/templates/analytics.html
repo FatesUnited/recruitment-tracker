@@ -1,0 +1,311 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/analytics.css' %}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<section class="page-header">
+  <h1>Alliance Analytics & Reporting</h1>
+  <img src="{% static 'images/1024 Logo No BG.png' %}" alt="Vapor Lock Logo" />
+</section>
+
+<section class="dashboard">
+
+  <div class="dashboard-panel">
+    <h3>Overview</h3>
+    <p><strong>Active Members:</strong> {{ active_members }}</p>
+    <p><strong>Active Recruits:</strong> {{ active_recruits }}</p>
+    <p><strong>Total Records:</strong> {{ total_records }}</p>
+    <p><strong>Total Attrition:</strong> {{ total_attrition }}</p>
+  </div>
+
+  <div class="dashboard-panel">
+    <h3>Recruitment Metrics</h3>
+    <p><strong>Graduated Total:</strong> {{ graduated_total }}</p>
+    <p><strong>Recruit → Member Conversion:</strong> {{ conversion_rate }}%</p>
+    <p><strong>Recruitment Rejection Rate:</strong> {{ rejection_rate }}%</p>
+    <p><strong>Voluntary Attrition:</strong> {{ voluntary_attrition }}</p>
+    <p><strong>Involuntary Attrition:</strong> {{ involuntary_attrition }}</p>
+  </div>
+
+  <div class="dashboard-panel">
+    <h3>Data Quality</h3>
+    <p><strong>Missing Registry Number:</strong> {{ missing_registry }}</p>
+    <p><strong>Missing Interviewer:</strong> {{ missing_interviewer }}</p>
+    <p><strong>Missing Portrait ID:</strong> {{ missing_portrait_id }}</p>
+  </div>
+
+  <div class="dashboard-panel">
+    <h3>Recruitment Outcomes</h3>
+    <p><strong>Pending:</strong> {{ recruitment_outcomes.Pending }}</p>
+    <p><strong>Recruit:</strong> {{ recruitment_outcomes.Recruit }}</p>
+    <p><strong>Member:</strong> {{ recruitment_outcomes.Member }}</p>
+    <p><strong>Rejected:</strong> {{ recruitment_outcomes.Rejected }}</p>
+    <p><strong>Declined:</strong> {{ recruitment_outcomes.Declined }}</p>
+  </div>
+
+</section>
+
+<section class="dashboard">
+  <div class="dashboard-panel panel-wide">
+    <h3>Member & Recruit Totals by Timezone</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Timezone</th>
+          <th>Members</th>
+          <th>Recruits</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for tz, stats in timezone_stats.items %}
+        <tr>
+          <td>{{ tz }}</td>
+          <td>{{ stats.Member }}</td>
+          <td>{{ stats.Recruit }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <canvas id="timezoneChart"></canvas>
+  </div>
+
+  <div class="dashboard-panel">
+    <h3>Tenure Buckets</h3>
+    <p><strong>0–5 months:</strong> {{ tenure_buckets.months_0_5 }}</p>
+    <p><strong>6–11 months:</strong> {{ tenure_buckets.months_6_11 }}</p>
+    <p><strong>12–17 months:</strong> {{ tenure_buckets.months_12_17 }}</p>
+    <p><strong>18–23 months:</strong> {{ tenure_buckets.months_18_23 }}</p>
+    <p><strong>24–29 months:</strong> {{ tenure_buckets.months_24_29 }}</p>
+    <p><strong>30–35 months:</strong> {{ tenure_buckets.months_30_35 }}</p>
+    <p><strong>36–41 months:</strong> {{ tenure_buckets.months_36_41 }}</p>
+    <p><strong>42–47 months:</strong> {{ tenure_buckets.months_42_47 }}</p>
+  </div>
+</section>
+
+<section class="dashboard">
+  <div class="dashboard-panel panel-wide">
+    <h3>Attrition Breakdown</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Left</td><td>{{ attrition_breakdown.Left }}</td></tr>
+        <tr><td>Kicked</td><td>{{ attrition_breakdown.Kicked }}</td></tr>
+        <tr><td>Purged</td><td>{{ attrition_breakdown.Purged }}</td></tr>
+      </tbody>
+    </table>
+    <canvas id="attritionChart"></canvas>
+  </div>
+
+  <div class="dashboard-panel">
+    <h3>Attrition by Timezone</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Timezone</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in attrition_by_timezone %}
+        <tr>
+          <td>{{ row.timezone|default:"Unknown" }}</td>
+          <td>{{ row.total }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="2">No attrition data</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="dashboard">
+  <div class="dashboard-panel panel-wide">
+    <h3>This Month’s Anniversaries</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Join Date</th>
+          <th>Corporation</th>
+          <th>State</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for member in current_month_anniversaries %}
+        <tr>
+          <td>{{ member.username }}</td>
+          <td>{{ member.join_date }}</td>
+          <td>{{ member.corporation }}</td>
+          <td>{{ member.member_state }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="4">No anniversaries this month</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="dashboard-panel panel-wide">
+    <h3>Next Month’s Anniversaries</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Join Date</th>
+          <th>Corporation</th>
+          <th>State</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for member in next_month_anniversaries %}
+        <tr>
+          <td>{{ member.username }}</td>
+          <td>{{ member.join_date }}</td>
+          <td>{{ member.corporation }}</td>
+          <td>{{ member.member_state }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="4">No anniversaries next month</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="dashboard">
+  <div class="dashboard-panel panel-wide">
+    <h3>Recruiter Contributions</h3>
+
+    <h4>Interviews</h4>
+    <ul>
+      {% for row in interview_stats %}
+      <li>{{ row.interviewed_by__username }} — {{ row.total }}</li>
+      {% empty %}
+      <li>No interview data</li>
+      {% endfor %}
+    </ul>
+
+    <h4>ESI Checks</h4>
+    <ul>
+      {% for row in esi_stats %}
+      <li>{{ row.esi_checked_by__username }} — {{ row.total }}</li>
+      {% empty %}
+      <li>No ESI check data</li>
+      {% endfor %}
+    </ul>
+
+    <h4>Onboardings</h4>
+    <ul>
+      {% for row in onboarding_stats %}
+      <li>{{ row.onboarded_by__username }} — {{ row.total }}</li>
+      {% empty %}
+      <li>No onboarding data</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+<script>
+  const timezoneChart = document.getElementById('timezoneChart');
+  if (timezoneChart) {
+    new Chart(timezoneChart, {
+      type: 'bar',
+      data: {
+        labels: ['US', 'EU', 'AU'],
+        datasets: [
+          {
+            label: 'Members',
+            data: [
+              {{ timezone_stats.US.Member }},
+              {{ timezone_stats.EU.Member }},
+              {{ timezone_stats.AU.Member }}
+            ]
+          },
+          {
+            label: 'Recruits',
+            data: [
+              {{ timezone_stats.US.Recruit }},
+              {{ timezone_stats.EU.Recruit }},
+              {{ timezone_stats.AU.Recruit }}
+            ]
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            labels: { color: '#d7e3f4' }
+          }
+        },
+        scales: {
+          x: {
+            ticks: { color: '#d7e3f4' },
+            grid: { color: 'rgba(255,255,255,0.08)' }
+          },
+          y: {
+            beginAtZero: true,
+            ticks: { color: '#d7e3f4' },
+            grid: { color: 'rgba(255,255,255,0.08)' }
+          }
+        }
+      }
+    });
+  }
+
+  const attritionChart = document.getElementById('attritionChart');
+  if (attritionChart) {
+    new Chart(attritionChart, {
+      type: 'bar',
+      data: {
+        labels: ['Left', 'Kicked', 'Purged'],
+        datasets: [{
+          label: 'Attrition',
+          data: [
+            {{ attrition_breakdown.Left }},
+            {{ attrition_breakdown.Kicked }},
+            {{ attrition_breakdown.Purged }}
+          ]
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            labels: { color: '#d7e3f4' }
+          }
+        },
+        scales: {
+          x: {
+            ticks: { color: '#d7e3f4' },
+            grid: { color: 'rgba(255,255,255,0.08)' }
+          },
+          y: {
+            beginAtZero: true,
+            ticks: { color: '#d7e3f4' },
+            grid: { color: 'rgba(255,255,255,0.08)' }
+          }
+        }
+      }
+    });
+  }
+</script>
+
+{% endblock %}

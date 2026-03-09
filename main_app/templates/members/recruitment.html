@@ -1,0 +1,15 @@
+{% extends 'members/index.html' %}
+
+{% block page_title %}Recruitment{% endblock %}
+
+{% block empty_message %}
+<div class="empty-state">
+  {% if query %}
+    <h2>No results found</h2>
+    <p>No capsuleers matched "<strong>{{ query }}</strong>".</p>
+  {% else %}
+    <h2>No active recruits</h2>
+    <p>No capsuleers are currently in pending or recruit status.</p>
+  {% endif %}
+</div>
+{% endblock %}

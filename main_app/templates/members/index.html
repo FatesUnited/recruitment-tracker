@@ -53,6 +53,18 @@
           <p><span class="card-label">State:</span> {{ member.member_state }}</p>
           <p><span class="card-label">Status:</span> <span class="status-badge">{{ member.current_status }}</span></p>
           <p><span class="card-label">Timezone:</span> {{ member.timezone }}</p>
+          {% if member.current_status == "Recruit" and member.days_in_recruit %}
+          <p>
+            <span class="card-label">Days as a Recruit:</span>
+            {% if member.days_in_recruit > 60 %}
+              <span class="danger">{{ member.days_in_recruit }}</span>
+            {% elif member.days_in_recruit > 30 %}
+              <span class="warn">{{ member.days_in_recruit }}</span>
+            {% else %}
+              {{ member.days_in_recruit }}
+            {% endif %}
+          </p>
+          {% endif %}
         </div>
       </a>
     </div>
