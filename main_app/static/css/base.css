@@ -276,6 +276,31 @@ textarea:focus {
   display: block;
 }
 
+.developer-section {
+  margin-top: 30px;
+}
+
+.developer-card {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  padding: 20px;
+  background: var(--panel-bg);
+  border: var(--borders);
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-box-shadow);
+}
+
+.developer-portrait {
+  width: 128px;
+  border-radius: 6px;
+}
+
+.developer-info p {
+  margin-bottom: 12px;
+  font-size: var(--font-reg);
+}
+
 @media only screen and (min-width: 768px) {
   header {
     position: sticky;
