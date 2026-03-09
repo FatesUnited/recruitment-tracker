@@ -26,7 +26,7 @@ This application was built as a portfolio project while also being designed for 
 
 ### Deployed Application
 
-[Live Application](YOUR_DEPLOYED_APP_URL)
+[Live Application](https://recruitmenttracker-2e9d26bd5dbd.herokuapp.com/)
 
 ### Planning Materials
 
