@@ -16,7 +16,7 @@ def about(request):
 
 @login_required
 def members_index(request):
-    members = Member.objects.all()
+    members = Member.objects.filter(current_status__in=['Member','Recruit'])
     return render(request, 'members/index.html', {'members': members})
 
 @login_required
@@ -55,15 +55,18 @@ def signup(request):
 
 @login_required
 def historical(request):
-    return render(request, 'historical.html')
+    members = Member.objects.all()
+    return render(request, 'members/historical.html', {'members': members})
 
 @login_required
 def graduation(request):
-    return render(request, 'graduation.html')
+    members = Member.objects.filter(graduation_date__isnull=False)
+    return render(request, 'members/graduation.html', {'members': members})
 
 @login_required
 def attrition(request):
-    return render(request, 'attrition.html')
+    members = Member.objects.filter(current_status__in=['Purged','Left','Kicked'])
+    return render(request, 'members/attrition.html', {'members': members})
 
 @login_required
 def analytics(request):

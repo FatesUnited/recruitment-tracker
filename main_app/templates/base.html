@@ -26,8 +26,11 @@
       <nav>
         <ul>
           {% if user.is_authenticated %}
+            <li><a href="{% url 'member_create' %}">New Capsuleer</a></li>
             <li><a href="{% url 'members_index' %}">Members</a></li>
-            <li><a href="{% url 'member_create' %}">Add a Member</a></li>
+            <li><a href="{% url 'historical' %}">Recruitment History</a></li>
+            <li><a href="{% url 'graduation' %}">TL Graduates</a></li>
+            <li><a href="{% url 'attrition' %}">Attrition</a></li>
             <li><a href="{% url 'about' %}">About</a></li>
             {% if user.is_staff %}
               <li><a href="{% url 'admin:index' %}">Admin</a></li>
