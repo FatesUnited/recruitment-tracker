@@ -163,3 +163,26 @@
   font-size: var(--font-reg);
   margin: 0 0 20px;
 }
+
+.blacklist-badge {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 4px 10px;
+  border: 1px solid var(--danger);
+  border-radius: 999px;
+  background: rgba(255, 61, 61, 0.12);
+  color: var(--danger);
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.card.blacklisted {
+  border-color: var(--danger);
+  box-shadow: 0 0 16px rgba(255, 61, 61, 0.14);
+}
+
+.card.blacklisted:hover {
+  box-shadow: 0 0 20px rgba(255, 61, 61, 0.2);
+}

@@ -35,7 +35,7 @@
 
 <section class="card-container">
   {% for member in members %}
-    <div class="card">
+    <div class="card {% if member.blacklisted %}blacklisted{% endif %}">
       <a href="{% url 'member_detail' member.id %}">
         <div class="card-content">
           <div class="card-img-container">
@@ -64,6 +64,9 @@
               {{ member.days_in_recruit }}
             {% endif %}
           </p>
+          {% endif %}
+          {% if member.blacklisted %}
+            <div class="blacklist-badge">Blacklisted</div>
           {% endif %}
         </div>
       </a>

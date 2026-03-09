@@ -51,6 +51,7 @@ class Member(models.Model):
     attrition_headcount = models.IntegerField(blank=True, null=True)
     eve_character_id = models.BigIntegerField(blank=True, null=True, unique=True)
     attrition_date = models.DateField(blank=True, null=True)
+    blacklisted = models.BooleanField(default=False)
 
     @property
     def portrait_url(self):

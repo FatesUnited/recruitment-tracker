@@ -117,18 +117,18 @@ def analytics(request):
     all_members = Member.objects.all()
 
     # Core totals
-    active_members = Member.objects.filter(member_state='Member').count()
-    active_recruits = Member.objects.filter(member_state='Recruit').count()
+    active_members = Member.objects.filter(current_status='Member').count()
+    active_recruits = Member.objects.filter(current_status='Recruit').count()
     total_records = all_members.count()
-    total_attrition = Member.objects.filter(current_status__in=['Purged', 'Left', 'Kicked']).count()
+    total_attrition = Member.objects.filter(current_status__in=['Purged', 'Left', 'Kicked', 'Voluntary - Other Group', 'Voluntary - IRL']).count()
 
     # Timezone breakdown for active member states
     timezone_breakdown = (
         Member.objects
-        .filter(member_state__in=['Member', 'Recruit'])
-        .values('timezone', 'member_state')
+        .filter(current_status__in=['Member', 'Recruit'])
+        .values('timezone', 'current_status')
         .annotate(total=Count('id'))
-        .order_by('timezone', 'member_state')
+        .order_by('timezone', 'current_status')
     )
 
     timezone_stats = {
@@ -139,14 +139,14 @@ def analytics(request):
 
     for row in timezone_breakdown:
         tz = row['timezone'] or 'Unknown'
-        state = row['member_state']
+        state = row['current_status']
         if tz in timezone_stats and state in timezone_stats[tz]:
             timezone_stats[tz][state] = row['total']
 
     # Corporation breakdown
     corporation_breakdown = (
         Member.objects
-        .filter(member_state__in=['Member', 'Recruit'])
+        .filter(current_status__in=['Member', 'Recruit'])
         .values('corporation')
         .annotate(total=Count('id'))
         .order_by('-total')
@@ -165,7 +165,7 @@ def analytics(request):
     }
 
     tenure_queryset = Member.objects.filter(
-        member_state__in=['Member', 'Recruit'],
+        current_status__in=['Member', 'Recruit'],
         join_date__isnull=False
     )
 
@@ -198,6 +198,7 @@ def analytics(request):
         'Rejected': Member.objects.filter(current_status='Rejected').count(),
         'Declined': Member.objects.filter(current_status='Declined').count(),
         'Pending': Member.objects.filter(current_status='Pending').count(),
+        'Blacklisted': Member.objects.filter(blacklisted=True).count()
     }
 
     # Graduation stats
@@ -229,14 +230,16 @@ def analytics(request):
         'Left': Member.objects.filter(current_status='Left').count(),
         'Kicked': Member.objects.filter(current_status='Kicked').count(),
         'Purged': Member.objects.filter(current_status='Purged').count(),
+        'Voluntary - Other Group': Member.objects.filter(current_status='Voluntary - Other Group').count(),
+        'Voluntary - IRL': Member.objects.filter(current_status='Voluntary - IRL').count(),
     }
 
-    voluntary_attrition = attrition_breakdown['Left']
+    voluntary_attrition = attrition_breakdown['Left'] + attrition_breakdown['Voluntary - Other Group'] + attrition_breakdown['Voluntary - IRL']
     involuntary_attrition = attrition_breakdown['Kicked'] + attrition_breakdown['Purged']
 
     attrition_by_timezone = (
         Member.objects
-        .filter(current_status__in=['Purged', 'Left', 'Kicked'])
+        .filter(current_status__in=['Purged', 'Left', 'Kicked', 'Voluntary - Other Group', 'Voluntary - IRL'])
         .values('timezone')
         .annotate(total=Count('id'))
         .order_by('-total')
@@ -244,7 +247,7 @@ def analytics(request):
 
     attrition_by_corporation = (
         Member.objects
-        .filter(current_status__in=['Purged', 'Left', 'Kicked'])
+        .filter(current_status__in=['Purged', 'Left', 'Kicked', 'Voluntary - Other Group', 'Voluntary - IRL'])
         .values('corporation')
         .annotate(total=Count('id'))
         .order_by('-total')
@@ -253,18 +256,18 @@ def analytics(request):
     # Anniversaries by join month
     current_month_anniversaries = Member.objects.filter(
         join_date__month=current_month,
-        member_state__in=['Member', 'Recruit']
+        current_status__in=['Member', 'Recruit']
     ).order_by('join_date')
 
     next_month_anniversaries = Member.objects.filter(
         join_date__month=next_month,
-        member_state__in=['Member', 'Recruit']
+        current_status__in=['Member', 'Recruit']
     ).order_by('join_date')
 
     anniversary_groups = defaultdict(list)
     anniversary_queryset = Member.objects.filter(
         join_date__isnull=False,
-        member_state__in=['Member', 'Recruit']
+        current_status__in=['Member', 'Recruit']
     ).order_by('join_date')
 
     month_names = {
@@ -304,16 +307,16 @@ def analytics(request):
     # Data quality / attention-needed stats
     missing_registry = Member.objects.filter(
         Q(registry_number__isnull=True) | Q(registry_number=''),
-        member_state__in=['Member', 'Recruit']
+        current_status__in=['Member', 'Recruit']
     ).count()
 
     missing_interviewer = Member.objects.filter(
-        member_state__in=['Member', 'Recruit'],
+        current_status__in=['Member', 'Recruit'],
         interviewed_by__isnull=True
     ).count()
 
     missing_portrait_id = Member.objects.filter(
-        member_state__in=['Member', 'Recruit'],
+        current_status__in=['Member', 'Recruit'],
         eve_character_id__isnull=True
     ).count()
 
@@ -371,7 +374,8 @@ class MemberCreate(LoginRequiredMixin, CreateView):
         'current_status',
         'graduation_date',
         'attrition_headcount',
-        'attrition_date'
+        'attrition_date',
+        'blacklisted',
     ]
 
     def form_valid(self, form):
@@ -397,7 +401,8 @@ class MemberUpdate(LoginRequiredMixin, UpdateView):
         'current_status',
         'graduation_date',
         'attrition_headcount',
-        'attrition_date'
+        'attrition_date',
+        'blacklisted',
     ]
 
     def form_valid(self, form):

@@ -14,6 +14,12 @@
   </div>
   <div class="member-details">
     <h1>{{ member.username }}</h1>
+    {% if member.blacklisted %}
+      <div class="blacklist-alert">
+        <h2>Blacklist Warning</h2>
+        <p>This pilot has been marked as blacklisted.</p>
+      </div>
+    {% endif %}
 
     <p><span class="detail-label">Timezone:</span> {{ member.timezone|default:"—" }}</p>
     <p><span class="detail-label">Corporation:</span> {{ member.corporation|default:"—" }}</p>
@@ -28,6 +34,13 @@
     <p><span class="detail-label">Onboarded By:</span> {{ member.onboarded_by|default:"—" }}</p>
     <p><span class="detail-label">Attrition Headcount:</span> {{ member.attrition_headcount|default:"—" }}</p>
     <p><span class="detail-label">Attrition Date:</span> {{ member.attrition_date|default:"—" }}</p>
+    <p><span class="detail-label">Blacklisted:</span>
+      {% if member.blacklisted %}
+        <span class="danger">Yes</span>
+      {% else %}
+        No
+      {% endif %}
+    </p>
     <p><span class="detail-label">Notes:</span> {{ member.notes|default:"—" }}</p>
 
     <div class="member-actions">
