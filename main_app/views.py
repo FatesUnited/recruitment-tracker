@@ -69,7 +69,7 @@ def signup(request):
 def recruitment(request):
     query = request.GET.get('q', '').strip()
 
-    members = Member.objects.filter(current_status__in=['Pending', 'Recruit']).order_by('created_at')
+    members = Member.objects.filter(current_status__in=['Pending', 'Recruit']).order_by(Lower('username'))
 
     if query:
         members = members.filter(Q(username__icontains=query))
@@ -91,7 +91,7 @@ def historical(request):
 def graduation(request):
     query = request.GET.get('q', '').strip()
 
-    members = Member.objects.filter(graduation_date__isnull=False).order_by('-graduation_date')
+    members = Member.objects.filter(graduation_date__isnull=False).order_by(Lower('username'))
 
     if query:
         members = members.filter(Q(username__icontains=query))
