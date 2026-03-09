@@ -6,7 +6,11 @@
 {% block content %}
 <section class="member-container">
   <div class="member-img">
-    <img src="{% static 'images/sk8r-boi-member.svg' %}" alt="A skater boy member" />
+    {% if member.portrait_url %}
+      <img src="{{ member.portrait_url }}" alt="{{ member.username }} portrait" />
+    {% else %}
+      <img src="{% static 'images/1024 Logo with BG.png' %}" alt="Vapor Lock Logo" />
+    {% endif %}
   </div>
   <div class="member-details">
     <h1>{{ member.username }}</h1>

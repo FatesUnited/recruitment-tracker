@@ -18,10 +18,11 @@
       <a href="{% url 'member_detail' member.id %}">
         <div class="card-content">
           <div class="card-img-container">
-            <img
-              src="{% static 'images/sk8r-boi-member.svg' %}"
-              alt="Member icon"
-            />
+            {% if member.portrait_url %}
+              <img src="{{ member.portrait_url }}" alt="{{ member.username }} portrait" />
+            {% else %}
+              <img src="{% static 'images/1024 Logo with BG.png' %}" alt="Vapor Lock Logo" />
+            {% endif %}
           </div>
 
           <h2 class="card-title">{{ member.username }}</h2>

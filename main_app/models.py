@@ -1,7 +1,6 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
-from django.contrib.auth import get_user_model
 
 CORPORATIONS = (
     ('TL', 'Tidal Lock'),
@@ -47,7 +46,14 @@ class Member(models.Model):
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
     graduation_date = models.DateField(blank=True, null=True)
     attrition_headcount = models.IntegerField(blank=True, null=True)
+    eve_character_id = models.BigIntegerField(blank=True, null=True, unique=True)
 
+    @property
+    def portrait_url(self):
+        if self.eve_character_id:
+            return f"https://images.evetech.net/characters/{self.eve_character_id}/portrait?size=256"
+        return None
+    
     def __str__(self):
         return self.username
 

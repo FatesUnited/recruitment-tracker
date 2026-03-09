@@ -7,6 +7,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .utils import resolve_eve_character_id
 
 class Home(LoginView):
     template_name = 'home.html'
@@ -74,11 +75,54 @@ def analytics(request):
 
 class MemberCreate(LoginRequiredMixin, CreateView):
     model = Member
-    fields = '__all__'
+    fields = [
+        'username',
+        'timezone',
+        'interviewed_by',
+        'esi_checked_by',
+        'onboarded_by',
+        'corporation',
+        'join_date',
+        'notes',
+        'member_state',
+        'num_of_characters',
+        'registry_number',
+        'current_status',
+        'graduation_date',
+        'attrition_headcount'
+    ]
+
+    def form_valid(self, form):
+        character_name = form.cleaned_data.get('username')
+        character_id = resolve_eve_character_id(character_name)
+        form.instance.eve_character_id = character_id
+        return super().form_valid(form)
 
 class MemberUpdate(LoginRequiredMixin, UpdateView):
     model = Member
-    fields = '__all__'
+    fields = [
+        'username',
+        'timezone',
+        'interviewed_by',
+        'esi_checked_by',
+        'onboarded_by',
+        'corporation',
+        'join_date',
+        'notes',
+        'member_state',
+        'num_of_characters',
+        'registry_number',
+        'current_status',
+        'graduation_date',
+        'attrition_headcount'
+    ]
+
+    def form_valid(self, form):
+        if 'username' in form.changed_data:
+            character_name = form.cleaned_data.get('username')
+            character_id = resolve_eve_character_id(character_name)
+            form.instance.eve_character_id = character_id
+        return super().form_valid(form)
 
 class MemberDelete(DeleteView):
     model = Member
