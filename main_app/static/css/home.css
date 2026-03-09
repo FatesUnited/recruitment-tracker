@@ -36,6 +36,12 @@ main > section {
   box-shadow: var(--card-box-shadow);
 }
 
+.logo-container img {
+  width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
 .member-container {
   width: 78%;
   max-width: 280px;
@@ -49,7 +55,7 @@ main > section {
 }
 
 .logo-container::after {
-  content: 'Vapor Lock recruitment and membership command console';
+  content: 'Vapor Lock Recruitment Tracker';
   display: block;
   margin-top: 18px;
   text-align: center;

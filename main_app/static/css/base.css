@@ -124,9 +124,11 @@ nav li {
 }
 
 .header-logo-container {
-  margin: auto;
-  padding: 10px 20px 0;
-  max-width: 500px;
+  display: flex;
+  align-items: center;
+  padding: 6px 16px;
+  width: auto;
+  height: auto;
 }
 
 .page-header {
@@ -268,6 +270,12 @@ textarea:focus {
   color: var(--text-muted);
 }
 
+.header-logo-container img {
+  height: 80px;
+  width: auto;
+  display: block;
+}
+
 @media only screen and (min-width: 768px) {
   header {
     position: sticky;
@@ -356,8 +364,7 @@ textarea:focus {
   }
 
   .header-logo-container {
-    /* visual fix to help align logo */
-    padding-top: 6px;
+    padding-top: 0px;
     width: 256px;
     height: 35px;
   }
