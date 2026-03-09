@@ -1,9 +1,45 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
+{% load static %}
+
 {% block content %}
-<h1>About the Recruitment Tracker</h1>
-<hr />
-<p class="page-content">
-  I like long romantic walks down the produce aisle. Also, I am currently job
-  seeking!
-</p>
+
+<section class="page-header">
+  <h1>About the Recruitment Tracker</h1>
+  <img src="{% static 'images/member-onigiri.svg' %}" alt="Member icon" />
+</section>
+
+<section class="page-content">
+  <p>
+    The <strong>Vapor Lock Recruitment Tracker</strong> is an internal tool designed to
+    support the recruitment and membership operations of the Vapor Lock alliance.
+    It allows recruiters to track applicants, manage onboarding progress,
+    and maintain a structured record of alliance members.
+  </p>
+
+  <p>
+    Recruiting in New Eden requires coordination between multiple recruiters,
+    interviewers, and onboarding officers. This application provides a
+    centralized system where recruiters can document interviews, record ESI
+    checks, track member status changes, and maintain notes about each pilot.
+  </p>
+
+  <p>
+    Each member record contains key operational details including recruitment
+    status, corporation assignment, timezone, onboarding progress, and internal
+    notes. Recruiters can also collaborate through a shared comment thread on
+    each member profile to provide updates and observations during the
+    recruitment pipeline.
+  </p>
+
+  <p>
+    The goal of this system is to simplify alliance administration and ensure
+    that recruitment decisions are informed, transparent, and well documented.
+  </p>
+
+  <p>
+    Built for the <strong>Vapor Lock alliance</strong> operating in the EVE Online
+    universe.
+  </p>
+</section>
+
 {% endblock %}
