@@ -24,7 +24,7 @@
   margin-top: 20px;
 }
 
-.feedings-toy-container {
+.comments-container {
   display: flex;
   flex-direction: column;
   padding-bottom: 20px;
@@ -41,7 +41,7 @@
   margin: 0 8px;
 }
 
-.toy-container {
+.comments-container {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -54,21 +54,17 @@
   margin-right: 10px;
 }
 
-.unfed,
-.fed,
-.no-toys,
-.all-toys {
+.no-comments,
+.all-comments {
   margin: 0;
   font-weight: bold;
 }
 
-.unfed,
-.no-toys {
+.no-comments {
   color: var(--danger);
 }
 
-.fed,
-.all-toys {
+.all-comments {
   color: var(--submit);
 }
 
@@ -94,7 +90,7 @@
   margin: 5px 0;
 }
 
-.feedings-toy-container > section {
+.comments-container > section {
   width: 80%;
   min-width: 360px;
   border: var(--borders);
@@ -116,14 +112,12 @@
   margin-left: 16px;
 }
 
-.feedings h2,
-.toys h2 {
+.comments h2 {
   font-size: 3.2rem;
   margin: 0;
 }
 
-.feedings h3,
-.toys h3 {
+.comments h3 {
   font-size: var(--font-xl);
   margin: 10px 0;
 }
@@ -140,38 +134,38 @@
   padding: 3px;
 }
 
-.feedings table {
+.comments table {
   width: calc(100% - 16px);
   text-align: left;
   border-collapse: collapse;
   margin: 0 8px;
 }
 
-.feedings td {
+.comments td {
   padding: 8px 5px;
   font-size: var(--font-reg);
 }
 
-.feedings th {
+.comments th {
   font-size: var(--font-l);
   padding: 5px 5px 0;
   border-bottom: rgb(36, 116, 248) solid 2px;
 }
 
-.feedings tr:nth-child(even) {
+.comments tr:nth-child(even) {
   background-color: #f3f3fd;
 }
 
-.toy-container p {
+.comment-container p {
   margin: 12px 0;
 }
 
-.toy-container a {
+.comment-container a {
   text-decoration: none;
   color: #111;
 }
 
-.toy-container .btn {
+.comment-container .btn {
   padding: 3px 10px;
   margin-left: 10px;
 }
@@ -201,19 +195,19 @@
     margin-right: 25px;
   }
 
-  .feedings-toy-container {
+  .comments-container {
     flex-direction: row;
     justify-content: space-around;
     align-items: flex-start;
   }
 
-  .feedings-toy-container > section {
+  .comments-container > section {
     width: 45%;
   }
 }
 
 @media only screen and (min-width: 1024px) {
-  .feedings-toy-container {
+  .comments-container {
     padding: 0 40px;
   }
 }

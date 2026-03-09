@@ -9,6 +9,11 @@ urlpatterns = [
     path('members/create/', views.MemberCreate.as_view(), name='member_create'),
     path('members/<int:pk>/update/', views.MemberUpdate.as_view(), name='member_update'),
     path('members/<int:pk>/delete/', views.MemberDelete.as_view(), name='member_delete'),
+    path(
+        'members/<int:member_id>/add_comment/', 
+        views.add_comment, 
+        name='add_comment'
+    ),
 
     path('historical/', views.historical, name='historical'),
     path('graduation/', views.graduation, name='graduation'),
