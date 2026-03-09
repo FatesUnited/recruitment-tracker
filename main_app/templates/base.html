@@ -29,6 +29,9 @@
             <li><a href="{% url 'members_index' %}">Members</a></li>
             <li><a href="{% url 'member_create' %}">Add a Member</a></li>
             <li><a href="{% url 'about' %}">About</a></li>
+            {% if user.is_staff %}
+              <li><a href="{% url 'admin:index' %}">Admin</a></li>
+            {% endif %}
             <li>
               <form id="logout-form" method="post" action="{% url 'logout' %}">
                 {% csrf_token %}
