@@ -26,6 +26,8 @@ STATUS_CHOICES = (
     ('Purged', 'Purged'),
     ('Rejected', 'Rejected'),
     ('Declined', 'Declined'),
+    ('Voluntary - Other Group', 'Voluntary - Other Group'),
+    ('Voluntary - IRL', 'Voluntary - IRL'),
     ('Left', 'Left'),
     ('Kicked', 'Kicked')
 )
@@ -48,6 +50,7 @@ class Member(models.Model):
     graduation_date = models.DateField(blank=True, null=True)
     attrition_headcount = models.IntegerField(blank=True, null=True)
     eve_character_id = models.BigIntegerField(blank=True, null=True, unique=True)
+    attrition_date = models.DateField(blank=True, null=True)
 
     @property
     def portrait_url(self):

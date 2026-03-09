@@ -370,7 +370,8 @@ class MemberCreate(LoginRequiredMixin, CreateView):
         'registry_number',
         'current_status',
         'graduation_date',
-        'attrition_headcount'
+        'attrition_headcount',
+        'attrition_date'
     ]
 
     def form_valid(self, form):
@@ -395,7 +396,8 @@ class MemberUpdate(LoginRequiredMixin, UpdateView):
         'registry_number',
         'current_status',
         'graduation_date',
-        'attrition_headcount'
+        'attrition_headcount',
+        'attrition_date'
     ]
 
     def form_valid(self, form):
