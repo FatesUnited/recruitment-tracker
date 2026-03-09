@@ -8,9 +8,30 @@
 {% block content %}
 
 <section class="page-header">
-  <h1>Member List</h1>
+  <h1>{% block page_title %}Members{% endblock %}</h1>
   <img src="{% static 'images/1024 Logo No BG.png' %}" alt="Vapor Lock Logo" />
 </section>
+
+<section class="search-section">
+  <form method="get" class="search-form">
+    <input
+      type="text"
+      name="q"
+      value="{{ query }}"
+      placeholder="Search capsuleers by name"
+    />
+    <button type="submit" class="btn submit">Search</button>
+    {% if query %}
+      <a href="{{ clear_url }}" class="btn secondary">Clear</a>
+    {% endif %}
+  </form>
+</section>
+
+{% if query %}
+  <p class="search-results-text">
+    Showing results for: <strong>{{ query }}</strong>
+  </p>
+{% endif %}
 
 <section class="card-container">
   {% for member in members %}
@@ -36,10 +57,17 @@
       </a>
     </div>
   {% empty %}
+    {% block empty_message %}
     <div class="empty-state">
-      <h2>No members found</h2>
-      <p>Add a new member to begin tracking recruitment and active membership.</p>
+      {% if query %}
+        <h2>No results found</h2>
+        <p>No capsuleers matched "<strong>{{ query }}</strong>".</p>
+      {% else %}
+        <h2>No members found</h2>
+        <p>Add a new capsuleer to begin tracking recruitment and active membership.</p>
+      {% endif %}
     </div>
+    {% endblock %}
   {% endfor %}
 </section>
 

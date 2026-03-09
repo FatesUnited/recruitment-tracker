@@ -110,3 +110,56 @@
   letter-spacing: 0.05em;
   background: rgba(0, 183, 255, 0.08);
 }
+
+.search-section {
+  margin: 0 0 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.search-form {
+  width: 100%;
+  max-width: 720px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 16px;
+  background: var(--panel-bg);
+  border: var(--borders);
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-box-shadow);
+}
+
+.search-form input {
+  flex: 1;
+  min-width: 240px;
+  padding: 10px 12px;
+  font-size: var(--font-reg);
+  font-family: inherit;
+  color: var(--text-color);
+  background: #0f141c;
+  border: 1px solid #22384d;
+  border-radius: 4px;
+}
+
+.search-form input:hover {
+  border-color: var(--accent-soft);
+}
+
+.search-form input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(0, 183, 255, 0.12);
+}
+
+.search-form .btn {
+  margin-right: 0;
+}
+
+.search-results-text {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: var(--font-reg);
+  margin: 0 0 20px;
+}

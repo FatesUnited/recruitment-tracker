@@ -8,6 +8,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .utils import resolve_eve_character_id
+from django.db.models import Q
 
 class Home(LoginView):
     template_name = 'home.html'
@@ -17,8 +18,16 @@ def about(request):
 
 @login_required
 def members_index(request):
+    query = request.GET.get('q', '').strip()
+
     members = Member.objects.filter(current_status__in=['Member','Recruit'])
-    return render(request, 'members/index.html', {'members': members})
+
+    if query:
+        members = members.filter(
+            Q(username__icontains=query)
+        )
+        
+    return render(request, 'members/index.html', {'members': members, 'query': query, 'clear_url': request.path})
 
 @login_required
 def member_detail(request, member_id):
@@ -56,18 +65,42 @@ def signup(request):
 
 @login_required
 def historical(request):
+    query = request.GET.get('q', '').strip()
+
     members = Member.objects.all()
-    return render(request, 'members/historical.html', {'members': members})
+
+    if query:
+        members = members.filter(
+            Q(username__icontains=query)
+        )
+
+    return render(request, 'members/historical.html', {'members': members, 'query': query, 'clear_url': request.path})
 
 @login_required
 def graduation(request):
+    query = request.GET.get('q', '').strip()
+
     members = Member.objects.filter(graduation_date__isnull=False)
-    return render(request, 'members/graduation.html', {'members': members})
+
+    if query:
+        members = members.filter(
+            Q(username__icontains=query)
+        )
+
+    return render(request, 'members/graduation.html', {'members': members, 'query': query, 'clear_url': request.path})
 
 @login_required
 def attrition(request):
+    query = request.GET.get('q', '').strip()
+
     members = Member.objects.filter(current_status__in=['Purged','Left','Kicked'])
-    return render(request, 'members/attrition.html', {'members': members})
+
+    if query:
+        members = members.filter(
+            Q(username__icontains=query)
+        )
+
+    return render(request, 'members/attrition.html', {'members': members, 'query': query, 'clear_url': request.path})
 
 @login_required
 def analytics(request):
@@ -124,6 +157,6 @@ class MemberUpdate(LoginRequiredMixin, UpdateView):
             form.instance.eve_character_id = character_id
         return super().form_valid(form)
 
-class MemberDelete(DeleteView):
+class MemberDelete(LoginRequiredMixin, DeleteView):
     model = Member
     success_url = '/members/'

@@ -1,1 +1,15 @@
 {% extends 'members/index.html' %}
+
+{% block page_title %}Attrition{% endblock %}
+
+{% block empty_message %}
+<div class="empty-state">
+  {% if query %}
+    <h2>No results found</h2>
+    <p>No capsuleers matched "<strong>{{ query }}</strong>".</p>
+  {% else %}
+    <h2>No archived capsuleers</h2>
+    <p>No capsuleers have been marked as purged, left, or kicked.</p>
+  {% endif %}
+</div>
+{% endblock %}

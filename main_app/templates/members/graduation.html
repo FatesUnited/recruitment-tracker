@@ -1,1 +1,15 @@
 {% extends 'members/index.html' %}
+
+{% block page_title %}TL Graduates{% endblock %}
+
+{% block empty_message %}
+<div class="empty-state">
+  {% if query %}
+    <h2>No results found</h2>
+    <p>No capsuleers matched "<strong>{{ query }}</strong>".</p>
+  {% else %}
+    <h2>No archived capsuleers</h2>
+    <p>No capsuleers currently have a graduation date.</p>
+  {% endif %}
+</div>
+{% endblock %}
