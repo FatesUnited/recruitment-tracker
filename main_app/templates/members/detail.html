@@ -11,8 +11,18 @@
   <div class="member-details">
     <h1>{{ member.username }}</h1>
     <p>Timezone: {{ member.timezone }}</p>
-    <p>Member State: {{ member.member_state }}</p>
+    <p>Corporation: {{ member.corporation }}</p>
     <p>Current Status: {{ member.current_status }}</p>
+    <p>Member State: {{ member.member_state }}</p>
+    <p>Join Date: {{ member.join_date }}</p>
+    <p>Registry Number: {{ member.registry_number }}</p>
+    <p>Number of Characters: {{ member.num_of_characters }}</p>
+    <p>Graduation Date: {{ member.graduation_date }}</p>
+    <p>Interviewed By: {{ member.interviewed_by }}</p>
+    <p>ESI Checked By: {{ member.esi_checked_by }}</p>
+    <p>Onboarded By: {{ member.onboarded_by }}</p>
+    <p>Attrition Headcount: {{ member.attrition_headcount }}</p>
+    <p>Interview Notes: {{ member.notes }}</p>
 
     <div class="member-actions">
         <a href="{% url 'member_update' member.id %}" class="btn warn">Edit</a>
