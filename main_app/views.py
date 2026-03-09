@@ -11,6 +11,7 @@ from .utils import resolve_eve_character_id
 from collections import defaultdict
 from datetime import date
 from django.db.models import Count, Q
+from django.db.models.functions import Lower
 
 
 class Home(LoginView):
@@ -23,7 +24,7 @@ def about(request):
 def members_index(request):
     query = request.GET.get('q', '').strip()
 
-    members = Member.objects.filter(current_status__in=['Member','Recruit'])
+    members = Member.objects.filter(current_status__in=['Member','Recruit']).order_by(Lower('username'))
 
     if query:
         members = members.filter(Q(username__icontains=query))
@@ -79,7 +80,7 @@ def recruitment(request):
 def historical(request):
     query = request.GET.get('q', '').strip()
 
-    members = Member.objects.all()
+    members = Member.objects.all().order_by(Lower('username'))
 
     if query:
         members = members.filter(Q(username__icontains=query))
@@ -90,7 +91,7 @@ def historical(request):
 def graduation(request):
     query = request.GET.get('q', '').strip()
 
-    members = Member.objects.filter(graduation_date__isnull=False)
+    members = Member.objects.filter(graduation_date__isnull=False).order_by('-graduation_date')
 
     if query:
         members = members.filter(Q(username__icontains=query))
@@ -101,7 +102,7 @@ def graduation(request):
 def attrition(request):
     query = request.GET.get('q', '').strip()
 
-    members = Member.objects.filter(current_status__in=['Purged','Left','Kicked'])
+    members = Member.objects.filter(current_status__in=['Purged','Left','Kicked', 'Voluntary - Other Group', 'Voluntary - IRL']).order_by(Lower('username'))
 
     if query:
         members = members.filter(Q(username__icontains=query))
