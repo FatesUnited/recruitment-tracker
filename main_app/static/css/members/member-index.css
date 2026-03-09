@@ -1,38 +1,112 @@
 .card-container {
-  padding: 0 30px;
-  display: flex;
+  padding: 10px 0 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 320px));
   justify-content: center;
-  flex-wrap: wrap;
+  gap: 20px;
 }
 
 .card {
-  width: 275px;
-  margin: 10px;
+  background: var(--panel-bg);
   border: var(--borders);
-  box-shadow: var(--card-box-shadow);
-}
-
-.card-content {
-  padding: 10px;
-  width: 100%;
-}
-
-.usr-img {
-  width: 100%;
   border-radius: var(--card-border-radius);
+  box-shadow: var(--card-box-shadow);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-soft);
+  box-shadow: 0 0 16px rgba(0, 183, 255, 0.14);
 }
 
 .card > a {
+  display: block;
   text-decoration: none;
   color: var(--text-color);
+  height: 100%;
 }
 
-.card h2 {
-  margin: 10px 0;
-  font-size: var(--font-xl);
+.card-content {
+  padding: 16px;
+  width: 100%;
+}
+
+.card-img-container {
+  width: 100%;
+  margin-bottom: 14px;
+  padding: 14px;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 183, 255, 0.08),
+    rgba(255, 255, 255, 0.02)
+  );
+  border: 1px solid rgba(0, 183, 255, 0.12);
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-img-container img {
+  width: 100%;
+  max-width: 180px;
+  display: block;
+}
+
+.card-title {
+  margin: 0 0 14px;
+  font-size: 2.2rem;
+  color: var(--accent);
+  letter-spacing: 0.03em;
 }
 
 .card p {
-  margin: 5px 0;
+  margin: 8px 0;
   font-size: var(--font-reg);
+  color: var(--text-color);
+  line-height: 1.4;
+}
+
+.card-label {
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 1.2rem;
+  margin-right: 6px;
+}
+
+.empty-state {
+  width: 100%;
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 24px;
+  text-align: center;
+  background: var(--panel-bg);
+  border: var(--borders);
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-box-shadow);
+}
+
+.empty-state h2 {
+  margin-top: 0;
+  color: var(--accent);
+}
+
+.empty-state p {
+  color: var(--text-muted);
+  font-size: var(--font-reg);
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border: 1px solid var(--accent-soft);
+  border-radius: 999px;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: rgba(0, 183, 255, 0.08);
 }

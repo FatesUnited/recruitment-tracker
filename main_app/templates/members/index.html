@@ -1,9 +1,11 @@
-{% extends 'base.html' %} {% load static %} {% block head %}
-<link
-  rel="stylesheet"
-  href="{% static 'css/members/member-index.css' %}"
-/>
-{% endblock %} {% block content %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/members/member-index.css' %}" />
+{% endblock %}
+
+{% block content %}
 
 <section class="page-header">
   <h1>Member List</h1>
@@ -27,25 +29,31 @@
 
 <section class="card-container">
   {% for member in members %}
-  <div class="card">
-    <a href="{% url 'member_detail' member.id %}">
-
+    <div class="card">
+      <a href="{% url 'member_detail' member.id %}">
         <div class="card-content">
-        <div class="card-img-container">
+          <div class="card-img-container">
             <img
-            src="{% static 'images/sk8r-boi-member.svg' %}"
-            alt="A skater boy member"
+              src="{% static 'images/sk8r-boi-member.svg' %}"
+              alt="Member icon"
             />
+          </div>
+
+          <h2 class="card-title">{{ member.username }}</h2>
+
+          <p><span class="card-label">Corporation:</span> {{ member.corporation }}</p>
+          <p><span class="card-label">Registry:</span> {{ member.registry_number|default:"—" }}</p>
+          <p><span class="card-label">State:</span> {{ member.member_state }}</p>
+          <p><span class="card-label">Status:</span> <span class="status-badge">{{ member.current_status }}</span></p>
+          <p><span class="card-label">Timezone:</span> {{ member.timezone }}</p>
         </div>
-        <h2 class="card-title">{{ member.username }}</h2>
-        <p>Corporation: {{ member.corporation }}</p>
-        <p>Registry Number: {{ member.registry_number }}</p>
-        <p>Member State: {{ member.member_state }}</p>
-        <p>Current Status: {{ member.current_status }}</p>
-        <p>Timezone: {{ member.timezone }}</p>
-        </div>
-    </a>
-  </div>
+      </a>
+    </div>
+  {% empty %}
+    <div class="empty-state">
+      <h2>No members found</h2>
+      <p>Add a new member to begin tracking recruitment and active membership.</p>
+    </div>
   {% endfor %}
 </section>
 

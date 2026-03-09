@@ -1,57 +1,196 @@
 .member-container {
-  padding: 35px 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  padding: 24px 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  align-items: start;
 }
 
 .member-img {
-  width: 75%;
-  max-width: 350px;
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+  padding: 20px;
+  background: var(--panel-bg);
+  border: var(--borders);
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-box-shadow);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.usr-img {
+.member-img img {
   width: 100%;
-  border-radius: var(--card-border-radius);
+  max-width: 220px;
+  display: block;
 }
 
 .member-details {
-  width: 98%;
+  width: 100%;
+  background: var(--panel-bg);
+  border: var(--borders);
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-box-shadow);
+  padding: 24px;
+}
+
+.member-details h1 {
+  font-size: var(--font-xxl);
+  margin: 0 0 18px;
+  color: var(--accent);
+  letter-spacing: 0.03em;
+}
+
+.member-details p {
+  font-size: var(--font-reg);
+  margin: 10px 0;
+  line-height: 1.5;
+  color: var(--text-color);
+}
+
+.member-details strong,
+.detail-label {
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 1.25rem;
+  margin-right: 6px;
 }
 
 .member-actions {
-  margin-top: 20px;
+  margin-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .comments-container {
   display: flex;
   flex-direction: column;
-  padding-bottom: 20px;
+  padding-bottom: 24px;
   align-items: center;
+}
+
+.comments-container > section {
+  width: 100%;
+  background: var(--panel-bg);
+  border: var(--borders);
+  border-radius: var(--card-border-radius);
+  padding: 20px;
+  box-shadow: var(--card-box-shadow);
 }
 
 .subsection-title {
   display: flex;
   align-items: center;
-  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.subsection-title img {
+  height: 38px;
+}
+
+.comments h2 {
+  font-size: 3rem;
+  margin: 0 10px 0 0;
+  color: var(--accent);
+}
+
+.comments h3 {
+  font-size: var(--font-xl);
+  margin: 18px 0 12px;
+  color: var(--text-color);
 }
 
 .subsection-content {
-  margin: 0 8px;
+  margin: 0 0 20px;
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(0, 183, 255, 0.08);
+  border-radius: 4px;
 }
 
-.comments-container {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
+.subsection-content p {
+  margin: 0 0 14px;
 }
 
-.color-block {
-  opacity: 0.8;
-  height: 25px;
-  width: 25px;
-  margin-right: 10px;
+.subsection-content label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--text-muted);
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.subsection-content input,
+.subsection-content select,
+.subsection-content textarea {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: var(--font-reg);
+  font-family: inherit;
+  color: var(--text-color);
+  background: #0f141c;
+  border: 1px solid #22384d;
+  border-radius: 4px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.subsection-content input:hover,
+.subsection-content select:hover,
+.subsection-content textarea:hover {
+  border-color: var(--accent-soft);
+}
+
+.subsection-content input:focus,
+.subsection-content select:focus,
+.subsection-content textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(0, 183, 255, 0.12);
+  background: #111925;
+}
+
+.subsection-content textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.comments table {
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+  background: transparent;
+}
+
+.comments th {
+  font-size: 1.4rem;
+  padding: 10px 8px;
+  border-bottom: 1px solid #22384d;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.comments td {
+  padding: 12px 8px;
+  font-size: var(--font-reg);
+  color: var(--text-color);
+  vertical-align: top;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.comments tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.comments tr:hover {
+  background-color: rgba(0, 183, 255, 0.05);
 }
 
 .no-comments,
@@ -68,101 +207,13 @@
   color: var(--submit);
 }
 
-.member-details h1 {
-  font-size: var(--font-xxl);
-  margin: 15px 0 3px;
-}
-
-.member-details h2 {
-  font-size: var(--font-xl);
-  margin: 0 0 10px;
-  margin-top: 0;
-  margin-bottom: 10px;
-}
-
-.member-details h3 {
-  margin: 20px 0 10px;
-  font-size: var(--font-l);
-}
-
-.member-details p {
-  font-size: var(--font-reg);
-  margin: 5px 0;
-}
-
-.comments-container > section {
-  width: 80%;
-  min-width: 360px;
-  border: var(--borders);
-  border-radius: var(--card-border-radius);
-  padding: 10px;
-  box-shadow: var(--card-box-shadow);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.subsection-title img {
-  height: 42px;
-  margin-left: 8px;
-}
-
-.subsection-title img:first-of-type {
-  margin-left: 16px;
-}
-
-.comments h2 {
-  font-size: 3.2rem;
-  margin: 0;
-}
-
-.comments h3 {
-  font-size: var(--font-xl);
-  margin: 10px 0;
-}
-
-.subsection-content p,
-.subsection-content input,
-.subsection-content select {
-  font-size: var(--font-l);
-}
-
-.subsection-content input,
-.subsection-content select {
-  margin-left: 5px;
-  padding: 3px;
-}
-
-.comments table {
-  width: calc(100% - 16px);
-  text-align: left;
-  border-collapse: collapse;
-  margin: 0 8px;
-}
-
-.comments td {
-  padding: 8px 5px;
-  font-size: var(--font-reg);
-}
-
-.comments th {
-  font-size: var(--font-l);
-  padding: 5px 5px 0;
-  border-bottom: rgb(36, 116, 248) solid 2px;
-}
-
-.comments tr:nth-child(even) {
-  background-color: #f3f3fd;
-}
-
 .comment-container p {
   margin: 12px 0;
 }
 
 .comment-container a {
   text-decoration: none;
-  color: #111;
+  color: var(--text-color);
 }
 
 .comment-container .btn {
@@ -183,31 +234,23 @@
 
 @media only screen and (min-width: 768px) {
   .member-container {
-    padding: 35px 30px;
-    flex-direction: row;
-    align-items: center;
-    justify-content: start;
+    grid-template-columns: 280px 1fr;
+    gap: 28px;
   }
 
   .member-img {
-    width: 25%;
-    max-width: 250px;
-    margin-right: 25px;
-  }
-
-  .comments-container {
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: flex-start;
-  }
-
-  .comments-container > section {
-    width: 45%;
+    margin: 0;
+    position: sticky;
+    top: 110px;
   }
 }
 
 @media only screen and (min-width: 1024px) {
   .comments-container {
-    padding: 0 40px;
+    padding: 0 0 30px;
+  }
+
+  .comments-container > section {
+    max-width: 1100px;
   }
 }

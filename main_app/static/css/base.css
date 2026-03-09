@@ -29,24 +29,48 @@ body {
     'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
     'Helvetica Neue', sans-serif;
   min-height: 100vh;
-  --nav-bg: rgba(104, 197, 248, 0.7);
-  --nav-bg-ff: rgba(104, 197, 248, 0.9);
-  --borders: rgb(36, 116, 248) solid 2px;
-  --text-color: rgb(17, 20, 17);
-  --link-hover-color: rgb(16, 56, 158);
-  --button-bg: rgb(245, 245, 245);
-  --button-bg-hover: rgb(226, 226, 226);
-  --submit: rgb(26, 128, 0);
-  --warn: rgb(255, 102, 0);
-  --danger: rgb(220, 20, 30);
-  --secondary: rgb(57, 57, 57);
-  --card-box-shadow: 5px 5px 6px -1px #aaa;
+
+  /* Vapor Lock / EVE Theme */
+  --bg-main: #0b0f17;
+  --panel-bg: #141a23;
+  --nav-bg: rgba(20, 26, 35, 0.9);
+  --nav-bg-ff: rgba(20, 26, 35, 1);
+
+  --accent: #00b7ff;
+  --accent-soft: #1a7da1;
+
+  --borders: #1f3a52 solid 1px;
+
+  --text-color: #d7e3f4;
+  --text-muted: #7e8fa3;
+
+  --link-hover-color: #00b7ff;
+
+  --button-bg: #1b2430;
+  --button-bg-hover: #253244;
+
+  --submit: #00c853;
+  --warn: #ff9800;
+  --danger: #ff3d3d;
+  --secondary: #8899aa;
+
+  --card-box-shadow: 0 0 10px rgba(0, 183, 255, 0.08);
+
   --font-xtreme: 4.2rem;
   --font-xxl: 3.6rem;
   --font-xl: 2.4rem;
   --font-l: 1.8rem;
   --font-reg: 1.6rem;
-  --card-border-radius: 6px;
+
+  --card-border-radius: 4px;
+
+  color: var(--text-color);
+
+  background:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px),
+    var(--bg-main);
+  background-size: 24px 24px, 24px 24px, auto;
 }
 
 header {
@@ -67,7 +91,7 @@ ul {
 
 main {
   width: 100%;
-  padding: 0 10px;
+  padding: 20px;
 }
 
 h2 {
@@ -79,10 +103,13 @@ nav a {
   color: var(--text-color);
   font-weight: 600;
   font-size: 16px;
+  padding: 6px 10px;
+  border-radius: 3px;
 }
 
 nav a:hover {
-  color: var(--link-hover-color);
+  color: var(--accent);
+  background: rgba(0, 183, 255, 0.08);
 }
 
 nav ul {
@@ -111,11 +138,11 @@ nav li {
 .btn {
   font-size: var(--font-l);
   padding: 8px 16px;
-  border-radius: 6px;
-  border-width: 2px;
-  border-style: solid;
+  border-radius: 4px;
+  border: 1px solid var(--accent-soft);
   text-decoration: none;
   background-color: var(--button-bg);
+  color: var(--text-color);
   font-weight: 600;
   cursor: pointer;
   font-family: inherit;
@@ -124,6 +151,7 @@ nav li {
 
 .btn:hover {
   background-color: var(--button-bg-hover);
+  border-color: var(--accent);
 }
 
 .submit {
@@ -178,6 +206,66 @@ nav li {
 
 #logout-form button:hover {
   color: var(--link-hover-color);
+}
+
+.card {
+  background: var(--panel-bg);
+  border: var(--borders);
+  border-radius: var(--card-border-radius);
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: var(--card-box-shadow);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--panel-bg);
+  border: var(--borders);
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  color: var(--accent);
+  border-bottom: var(--borders);
+}
+
+tr:nth-child(even) {
+  background: rgba(255,255,255,0.02);
+}
+
+tr:hover {
+  background: rgba(0,183,255,0.05);
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 8px;
+  background: #0f141c;
+  border: var(--borders);
+  color: var(--text-color);
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.comment {
+  border-bottom: var(--borders);
+  padding: 10px 0;
+}
+
+.comment small {
+  color: var(--text-muted);
 }
 
 @media only screen and (min-width: 768px) {

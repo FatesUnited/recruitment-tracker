@@ -3,84 +3,178 @@ main {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  height: 100%;
+  gap: 30px;
+  min-height: 100%;
+  padding: 30px 16px;
 }
 
 main > section {
   width: 100%;
-  padding: 10px 8px;
+  max-width: 560px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
 }
 
+/* Hide the small header logo on the homepage */
 .header-logo-container {
   display: none;
 }
 
+/* Left side: branding */
 .logo-container {
-  max-width: 375px;
+  max-width: 500px;
+  padding: 24px;
+  background: linear-gradient(
+    180deg,
+    rgba(20, 26, 35, 0.9),
+    rgba(11, 15, 23, 0.95)
+  );
+  border: var(--borders);
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-box-shadow);
 }
 
 .member-container {
-  width: 80%;
+  width: 78%;
+  max-width: 280px;
+  margin: 0 auto 20px;
 }
 
+.logo-container > img:last-child {
+  width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+.logo-container::after {
+  content: 'Vapor Lock recruitment and membership command console';
+  display: block;
+  margin-top: 18px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 1.4rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Right side: login panel */
 .login {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 80%;
+  width: 100%;
+  padding: 24px;
+  background: var(--panel-bg);
+  border: var(--borders);
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-box-shadow);
 }
 
 .login h1 {
-  font-size: clamp(3.2rem, 3vw, 4.8rem);
-  margin: 10px 0;
+  font-size: clamp(3rem, 4vw, 4.4rem);
+  margin: 0 0 6px;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.login::before {
+  content: 'Secure recruiter access';
+  font-size: 1.3rem;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
 }
 
 .login > p {
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin: 14px 0 0px;
+  margin: 0 0 16px;
 }
 
 .login label {
-  font-size: var(--font-reg);
+  font-size: 1.3rem;
   margin-bottom: 6px;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .login input {
-  font-size: var(--font-l);
-  padding: 2px 4px;
+  width: 100%;
+  font-size: var(--font-reg);
+  padding: 10px 12px;
+  color: var(--text-color);
+  background: #0f141c;
+  border: 1px solid #22384d;
+  border-radius: 4px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.login input:hover {
+  border-color: var(--accent-soft);
+}
+
+.login input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(0, 183, 255, 0.12);
+  background: #111925;
 }
 
 .login .btn {
   align-self: flex-end;
   margin-right: 0;
-  margin-top: 16px;
+  margin-top: 8px;
+  min-width: 140px;
+}
+
+.login ul.errorlist {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 8px;
+  color: #ff7b7b;
+  font-size: 1.3rem;
+}
+
+/* Optional small help text / paragraph text */
+.login p,
+.login .helptext {
+  color: var(--text-color);
 }
 
 @media only screen and (min-width: 768px) {
   main {
-    justify-content: space-around;
+    justify-content: center;
+    align-items: stretch;
+    gap: 40px;
   }
 
   main > section {
-    width: 40%;
+    width: calc(50% - 20px);
   }
 
+  .logo-container,
   .login {
-    border: var(--borders);
-    padding: 20px;
-    border-radius: var(--card-border-radius);
-    box-shadow: var(--card-box-shadow);
-    width: 100%;
+    min-height: 420px;
+    justify-content: center;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  main {
+    padding-top: 40px;
   }
 
   .logo-container {
-    max-width: 520px;
+    max-width: 560px;
+  }
+
+  .member-container {
+    max-width: 320px;
   }
 }
